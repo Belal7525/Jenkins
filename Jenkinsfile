@@ -45,7 +45,7 @@ pipeline {
         stage('Publish Artifacts') {
             steps {
                 echo "Publishing Artifacts..."
-                sh 'cp -r /tmp/artifacts /var/www/html/java-report'
+                sh 'sudo cp -r /tmp/artifacts /var/www/html/java-report'
             }
         }
     }
