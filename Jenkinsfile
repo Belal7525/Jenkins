@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    parameters {
+        booleanParam(name: 'RUN_STABILITY', defaultValue: true, description: 'Run Code Stability check?')
+        booleanParam(name: 'RUN_QUALITY', defaultValue: true, description: 'Run Code Quality scan?')
+        booleanParam(name: 'RUN_COVERAGE', defaultValue: true, description: 'Run Code Coverage analysis?')
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -9,6 +15,9 @@ pipeline {
         }
 
         stage('Code Stability') {
+            when {
+                expression { params.RUN_STABILITY }
+            }
             steps {
                 echo "Running Code Stability..."
                 sh 'mvn clean verify'
@@ -16,6 +25,9 @@ pipeline {
         }
 
         stage('Code Quality') {
+            when {
+                expression { params.RUN_QUALITY }
+            }
             steps {
                 echo "Running Code Quality Scan..."
                 sh 'mvn checkstyle:check'
@@ -23,6 +35,9 @@ pipeline {
         }
 
         stage('Code Coverage') {
+            when {
+                expression { params.RUN_COVERAGE }
+            }
             steps {
                 echo "Running Code Coverage Analysis..."
                 sh 'mvn jacoco:report'
