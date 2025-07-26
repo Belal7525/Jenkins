@@ -51,11 +51,15 @@ pipeline {
     }
 
     post {
+        success {
+            mail to: 'mohammadbelal1803551@gmail.com',
+                 subject: "SUCCESS: Jenkins Job '${env.JOB_NAME}' (#${env.BUILD_NUMBER})",
+                 body: "Jenkins job succeeded!\nCheck it here: ${env.BUILD_URL}"
+        }
         failure {
             mail to: 'mohammadbelal1803551@gmail.com',
-                 subject: "Jenkins Job '${env.JOB_NAME}' (#${env.BUILD_NUMBER}) Failed",
-                 body: "Check the Jenkins job here: ${env.BUILD_URL}"
+                 subject: "FAILURE: Jenkins Job '${env.JOB_NAME}' (#${env.BUILD_NUMBER})",
+                 body: "Jenkins job failed!\nCheck it here: ${env.BUILD_URL}"
         }
     }
 }
-
