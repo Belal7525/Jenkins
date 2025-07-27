@@ -1,16 +1,10 @@
 pipeline {
     agent any
 
-    parameters {
-        booleanParam(name: 'RUN_STABILITY', defaultValue: true, description: 'Run Code Stability check?')
-        booleanParam(name: 'RUN_QUALITY', defaultValue: true, description: 'Run Code Quality scan?')
-        booleanParam(name: 'RUN_COVERAGE', defaultValue: true, description: 'Run Code Coverage analysis?')
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/Belal7525/Jenkins.git', branch: 'main'
+                git url: 'https://github.com/OT-MICROSERVICES/salary-api.git', branch: 'main'
             }
         }
 
